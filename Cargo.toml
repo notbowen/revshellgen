@@ -1,0 +1,13 @@
+[package]
+name = "rev_shell_gen"
+version = "0.1.0"
+edition = "2021"
+authors = ["Hu Bowen <bowenhu21@gmail.com>"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+structopt = "0.3.26"
+strum = "0.24.1"
+strum_macros = "0.24.3"
+arboard = "3.2.0"
