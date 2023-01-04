@@ -2,7 +2,6 @@ use arboard::Clipboard;
 use structopt::StructOpt;
 use strum::VariantNames;
 use strum_macros::{EnumString, EnumVariantNames};
-
 use std::process::Command;
 
 #[derive(Debug, EnumString, EnumVariantNames)]
@@ -40,7 +39,7 @@ struct Options {
     #[structopt(short, long, possible_values = &Shells::VARIANTS)]
     shell: Shells,
 
-    #[structopt(short, long)]
+    #[structopt(short, long, help = "Toggle flag to not deploy a reverse shell listener")]
     reverse_shell: bool,
 }
 
