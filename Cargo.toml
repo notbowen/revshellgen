@@ -1,6 +1,6 @@
 [package]
 name = "rev_shell_gen"
-version = "0.1.0"
+version = "0.0.1"
 edition = "2021"
 authors = ["Hu Bowen <bowenhu21@gmail.com>"]
 
